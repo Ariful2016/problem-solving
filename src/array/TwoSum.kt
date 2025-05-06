@@ -1,15 +1,30 @@
 package array
 
 fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+    val num = intArrayOf(1, 3, 7, 9, 2)
+    val result = twoSum(num, 11)
 
-    for (i in 1..5) {
-        println("i = $i")
+    if (result.isNotEmpty()) {
+        println("Indices: ${result[0]}, ${result[1]}")
+    } else {
+        println("No match found")
     }
 }
+
+fun twoSum(num: IntArray, target: Int): IntArray {
+    val hm = mutableMapOf<Int, Int>() // value to index
+
+    for (i in num.indices) {
+        if (hm.containsKey( target - num[i])) {
+            return intArrayOf(hm[ target - num[i]]!!, i)
+        } else {
+            hm[num[i]] = i
+        }
+    }
+
+    return intArrayOf() // return empty array if no match
+}
+
 
 /**
  * 1. Two Sum
