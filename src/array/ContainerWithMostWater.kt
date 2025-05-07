@@ -4,27 +4,60 @@ import kotlin.math.max
 import kotlin.math.min
 
 fun main() {
-    val heights = intArrayOf(7,1,2,9,2)
-    val  result = maxArea(heights)
-    print("Max area: $result")
+    // Sample input array representing heights of vertical lines
+    val heights = intArrayOf(7, 1, 2, 9, 2)
+    // Calculate the maximum area using the maxArea function
+    val result = maxArea(heights)
+    // Print the result
+    println("Max area: $result")
 }
 
-fun maxArea(height : IntArray) : Int{
+/**
+ * Calculates the maximum area of water that can be trapped between two vertical lines.
+ *
+ * Given an array of non-negative integers [height], where each element represents the height of a vertical line
+ * at that index, this function finds two lines that, together with the x-axis, form a container that holds
+ * the maximum amount of water. The area is calculated as the minimum height of the two lines multiplied by
+ * the distance between their indices.
+ *
+ * The algorithm uses a **two-pointer technique** to achieve O(n) time complexity:
+ * - Start with two pointers: one at the beginning (`left`) and one at the end (`right`) of the array.
+ * - Compute the area between the lines at these pointers.
+ * - Move the pointer pointing to the shorter line inward, as the area is limited by the shorter line.
+ * - Update the maximum area if the current area is larger.
+ * - Continue until the pointers meet.
+ *
+ * @param height An array of non-negative integers representing the heights of vertical lines.
+ * @return The maximum area of water that can be trapped between any two lines.
+ * @throws IllegalArgumentException If the input array has fewer than 2 elements, as at least two lines are required.
+ */
+fun maxArea(height: IntArray): Int {
+    // Validate input: ensure at least 2 lines are present
+    if (height.size < 2) {
+        throw IllegalArgumentException("Array must have at least 2 elements")
+    }
 
-    var maxA = 0
-    var left = 0
-    var right = height.size - 1
+    // Initialize variables
+    var maxA = 0 // Tracks the maximum area found
+    var left = 0 // Left pointer starting at the beginning
+    var right = height.size - 1 // Right pointer starting at the end
 
+    // Continue until pointers meet
     while (left < right) {
+        // Calculate width as the distance between pointers
         val width = right - left
+        // Height is the minimum of the two lines
         val minHeight = minOf(height[left], height[right])
+        // Area = height * width
         val area = minHeight * width
+        // Update maximum area if current area is larger
         maxA = maxOf(maxA, area)
 
+        // Move the pointer of the shorter line inward
         if (height[left] < height[right]) {
-            left++
+            left++ // Shorter line at left, move left pointer
         } else {
-            right--
+            right-- // Shorter or equal line at right, move right pointer
         }
     }
 
