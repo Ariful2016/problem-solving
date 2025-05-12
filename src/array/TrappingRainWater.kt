@@ -24,6 +24,13 @@ fun main(){
     println("total water: $result")
 }
 
+/**
+ * bruteforce solution
+ * A brute-force solution is a straightforward approach to solving a problem by trying all possible options
+ * and selecting the best one based on the problem's requirements.
+ * It doesn’t use any shortcuts or optimizations—it simply explores every possible outcome exhaustively.
+ */
+
 fun trw(height : IntArray): Int{
     var totalWater = 0;
     for (i in height.indices){
