@@ -62,6 +62,8 @@ fun trw(height: IntArray): Int {
  * Optimized solution
  * The two-pointer technique is a popular algorithmic strategy used to
  * reduce time complexity by using two pointers (indices) to traverse a data structure—usually an array or a string.
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
  */
 
 fun trwOptimized(height: IntArray): Int {
