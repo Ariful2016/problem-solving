@@ -1,0 +1,49 @@
+package array
+
+/**
+ * 42. Trapping Rain Water
+ * Hard
+ * Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+ *
+ * Example 1:
+ * Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
+ * Output: 6
+ * Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+ * Example 2:
+ *
+ * Input: height = [4,2,0,3,2,5]
+ * Output: 9
+ */
+
+fun main(){
+    // Sample input array representing heights of vertical lines
+    val height = intArrayOf(0,1,0,2,1,0,1,3,2,1,2,1)
+    // Calculate the maximum area using the maxArea function
+    val result = trw(height)
+    // Print the result
+    println("total water: $result")
+}
+
+fun trw(height : IntArray): Int{
+    var totalWater = 0;
+    for (i in height.indices){
+        var leftP = i
+        var rightP = i
+        var rightMax = 0
+        var leftMax = 0
+
+        while (leftP >= 0){
+            leftMax = maxOf(leftMax,height[leftP])
+            leftP--
+        }
+        while (rightP < height.size){
+            rightMax = maxOf(rightMax,height[rightP])
+            rightP++
+        }
+        val currentWater = minOf(leftMax,rightMax) - height[i]
+        if (currentWater >= 0){
+            totalWater += currentWater
+        }
+    }
+    return totalWater;
+}
