@@ -38,7 +38,7 @@ import java.util.Stack
 fun main() {
     val s1 = "ab#c"
     val s2 = "ad#c"
-    val result = backspaceStringCompare(s1,s2)
+    val result = backspaceStringCompareOptimal(s1,s2)
     // Print the result
     println("Is same: $result")
 }
@@ -82,4 +82,48 @@ fun buildString(s: String) : Stack<String>{
         }
     }
     return result
+}
+
+/**
+ * Optimal solution
+ * Two pointer
+ */
+
+fun backspaceStringCompareOptimal (s1: String, s2: String): Boolean{
+    var str1 = s1.length - 1
+    var str2 = s2.length - 1
+
+    while (str1 >= 0 || str2 >= 0){
+        if (s1[str1].toString() == "#" || s2[str2].toString() == "#"){
+            if (s1[str1].toString() == "#"){
+                var backCount = 2
+                while (backCount > 0){
+                    str1--
+                    backCount--
+                    if (s1[str1].toString() == "#"){
+                        backCount += 2
+                    }
+                }
+            }
+            if (s2[str2].toString() == "#"){
+                var backCount = 2
+                while (backCount > 0){
+                    str2--
+                    backCount--
+                    if (s2[str2].toString() == "#"){
+                        backCount += 2
+                    }
+                }
+            }
+        }else{
+            if (s1[str1].toString() != s2[str2].toString()){
+                return false
+            }else{
+                str1--
+                str2--
+            }
+        }
+    }
+    return true
+
 }
